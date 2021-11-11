@@ -491,6 +491,18 @@ require "lsp_signature".setup()
 EOF
 " }}}
 
+" nvim context_commentstring {{{
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  context_commentstring = {
+    enable = true
+  }
+}
+EOF
+
+" }}}
+
 " Mappings
 
 " general {{{
@@ -504,7 +516,7 @@ inoremap <M-s> <Esc>:write<CR>gi
 nnoremap <M-q> :bd<CR>
 nnoremap ; :
 
-nnoremap <C-p> :Files<CR>
+nnoremap <C-p> :Telescope find_files<CR>
 nnoremap <leader>t :NvimTreeToggle<CR>
 
 nmap <C-_> gcc
@@ -547,7 +559,7 @@ nnoremap <C-l> <C-w>l
 
 " formatter.nvim {{{ 
 
-nnoremap <silent> <leader>f :Format<CR>
+nnoremap <silent> <M-f> :Format<CR>
 
 " }}}
 
