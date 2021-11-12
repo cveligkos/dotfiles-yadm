@@ -30,18 +30,20 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 " Plug 'voldikss/vim-floaterm'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'noib3/cokeline.nvim'
+" Plug 'noib3/cokeline.nvim'
 
 Plug 'luukvbaal/stabilize.nvim'
 
 " Plug 'b3nj5m1n/kommentary'
 Plug 'tpope/vim-commentary'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+Plug 'kevinhwang91/rnvimr'
 
 " Plug 'tweekmonster/startuptime.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'windwp/nvim-ts-autotag'
 Plug 'sheerun/vim-polyglot'
+Plug 'fladson/vim-kitty'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'glepnir/lspsaga.nvim'
@@ -295,7 +297,11 @@ EOF
 " nvim-lualine {{{
 lua <<EOF
 
-require('lualine').setup()
+require('lualine').setup {
+  options = {
+    theme = 'onenord'
+    }
+  }
 
 EOF
 
@@ -418,62 +424,62 @@ EOF
 " cokeline.nvim {{{
 
 lua << EOF
-local get_hex = require('cokeline/utils').get_hex
+-- local get_hex = require('cokeline/utils').get_hex
 
-require('cokeline').setup({
-  -- If true the bufferline is hidden when only one buffer is listed
-  hide_when_one_buffer = false,
+-- require('cokeline').setup({
+--   -- If true the bufferline is hidden when only one buffer is listed
+--   hide_when_one_buffer = false,
 
-  -- Controls what happens when the first (last) buffer is focused and the user
-  -- tries to focus/switch to the previous (next) buffer. If true the last
-  -- (first) buffer gets focused/switched to, if false nothing happens.
-  cycle_prev_next_mappings = false,
+--   -- Controls what happens when the first (last) buffer is focused and the user
+--   -- tries to focus/switch to the previous (next) buffer. If true the last
+--   -- (first) buffer gets focused/switched to, if false nothing happens.
+--   cycle_prev_next_mappings = false,
 
-  buffers = {
-    -- A function to filter out unwanted buffers. It takes the `buffer` table
-    -- (described above) as a parameter.
-    -- For example, if you want to keep terminals out of your cokeline:
-    --   filter = function(buffer) return buffer.type ~= 'terminal' end,
-    filter = nil,
-  },
+--   buffers = {
+--     -- A function to filter out unwanted buffers. It takes the `buffer` table
+--     -- (described above) as a parameter.
+--     -- For example, if you want to keep terminals out of your cokeline:
+--     --   filter = function(buffer) return buffer.type ~= 'terminal' end,
+--     filter = nil,
+--   },
 
-  -- Default colors for the foregound/background of focused/unfocused
-  -- lines. Their default values are derived from the foreground/background of
-  -- other highlight groups.
-  default_hl = {
-    focused = {
-      fg = get_hex('ColorColumn', 'bg'),
-      bg = get_hex('Normal', 'fg'),
-    },
-    unfocused = {
-      fg = get_hex('Normal', 'fg'),
-      bg = get_hex('ColorColumn', 'bg'),
-    },
-  },
+--   -- Default colors for the foregound/background of focused/unfocused
+--   -- lines. Their default values are derived from the foreground/background of
+--   -- other highlight groups.
+--   default_hl = {
+--     focused = {
+--       fg = get_hex('ColorColumn', 'bg'),
+--       bg = get_hex('Normal', 'fg'),
+--     },
+--     unfocused = {
+--       fg = get_hex('Normal', 'fg'),
+--       bg = get_hex('ColorColumn', 'bg'),
+--     },
+--   },
 
-  -- A list of components used to build every line of the cokeline.
-  components = {
-    {
-      text = function(buffer) return ' ' .. buffer.devicon.icon end,
-      hl = {
-        fg = function(buffer) return buffer.devicon.color end,
-      },
-    },
-    {
-      text = function(buffer) return buffer.unique_prefix end,
-      hl = {
-        fg = get_hex('Comment', 'fg'),
-        style = 'italic',
-      },
-    },
-    {
-      text = function(buffer) return buffer.filename .. ' ' end,
-    },
-    {
-      text = ' ',
-    }
-  },
-})
+--   -- A list of components used to build every line of the cokeline.
+--   components = {
+--     {
+--       text = function(buffer) return ' ' .. buffer.devicon.icon end,
+--       hl = {
+--         fg = function(buffer) return buffer.devicon.color end,
+--       },
+--     },
+--     {
+--       text = function(buffer) return buffer.unique_prefix end,
+--       hl = {
+--         fg = get_hex('Comment', 'fg'),
+--         style = 'italic',
+--       },
+--     },
+--     {
+--       text = function(buffer) return buffer.filename .. ' ' end,
+--     },
+--     {
+--       text = ' ',
+--     }
+--   },
+-- })
 
 EOF
 
@@ -502,6 +508,17 @@ require'nvim-treesitter.configs'.setup {
 EOF
 
 " }}}
+
+" rnvimr {{{
+
+" Make Ranger replace Netrw and be the file explorer
+let g:rnvimr_enable_ex = 1
+
+" Make Ranger to be hidden after picking a file
+let g:rnvimr_enable_picker = 1
+nnoremap <silent> <M-o> :RnvimrToggle<CR>
+
+"}}}
 
 " Mappings
 
@@ -603,8 +620,6 @@ nnoremap <leader>fm <cmd>Telescope man_pages<cr>
 
 " trouble.nvim {{{
 
-" trouble.nvim {{{
-
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
 nnoremap <leader>xw <cmd>TroubleToggle lsp_workspace_diagnostics<cr>
 nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
@@ -616,10 +631,18 @@ nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 " cokeline.nvim {{{
 
-" Focus the previous/next buffer
-nmap <silent> <leader>k <Plug>(cokeline-focus-prev)
-nmap <silent> <leader>j <Plug>(cokeline-focus-next)
+" " Focus the previous/next buffer
+" nmap <silent> <leader>k <Plug>(cokeline-focus-prev)
+" nmap <silent> <leader>j <Plug>(cokeline-focus-next)
 
-" Switch the position of the current buffer with the previous/next buffer
-nmap <silent> <Leader>K <Plug>(cokeline-switch-prev)
-nmap <silent> <Leader>J <Plug>(cokeline-switch-next) " }}}
+" " Switch the position of the current buffer with the previous/next buffer
+" nmap <silent> <Leader>K <Plug>(cokeline-switch-prev)
+" nmap <silent> <Leader>J <Plug>(cokeline-switch-next) 
+
+" }}}
+
+" rnvimr {{{
+
+nnoremap <silent> <M-o> :RnvimrToggle<CR>
+
+"}}}
