@@ -68,6 +68,8 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'windwp/nvim-spectre'
 Plug 'mhartington/formatter.nvim'
 
+Plug 'lukas-reineke/indent-blankline.nvim'
+
 Plug 'windwp/nvim-autopairs'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'folke/trouble.nvim'
@@ -519,6 +521,16 @@ let g:rnvimr_enable_picker = 1
 nnoremap <silent> <M-o> :RnvimrToggle<CR>
 
 "}}}
+
+" indent-blankline {{{
+
+lua <<EOF
+require("indent_blankline").setup {
+    char = "|",
+    buftype_exclude = {"terminal"}
+  }
+EOF
+" }}}
 
 " Mappings
 
