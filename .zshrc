@@ -71,9 +71,30 @@ bindkey -v
 
 # }}}
 
+# aliases {{{
+
+alias v='nvim'
+alias t='task'
+alias r='ranger'
+alias lg='lazygit'
+
+alias ls='exa'
+alias la='exa -a'
+alias ll='exa -l'
+alias lla='exa -la'
+
+alias gc='git commit'
+alias gs='git status'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gcl='git clone'
+
+# }}}
+
 # Powerlevel10k settings {{{
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # }}}
+
