@@ -1,6 +1,5 @@
 # vim:fileencoding=utf-8:foldmethod=marker
 
-
 # zinit {{{
 
 ### Added by Zinit's installer
@@ -98,3 +97,8 @@ alias gcl='git clone'
 
 # }}}
 
+# zoxide {{{
+
+eval "$(zoxide init zsh)"
+
+# }}}
