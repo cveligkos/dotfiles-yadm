@@ -88,6 +88,8 @@ alias gd='git diff'
 alias gds='git diff --staged'
 alias gcl='git clone'
 
+alias reload='source ~/.zshrc'
+
 # }}}
 
 # Powerlevel10k settings {{{
@@ -100,5 +102,29 @@ alias gcl='git clone'
 # zoxide {{{
 
 eval "$(zoxide init zsh)"
+
+# }}}
+
+# volta {{{
+
+export VOLTA_HOME="$HOME/.volta"
+path=("$VOLTA_HOME/bin" $path)
+
+# }}}
+
+# path {{{
+
+path=("$HOME/bin" $path)
+typeset -U path
+
+# }}}
+
+# Env vars {{{
+
+export EDITOR='nvim'
+
+if [ -f ~/.env-vars ]; then
+	source ~/.env-vars
+fi
 
 # }}}

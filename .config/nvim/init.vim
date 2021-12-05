@@ -57,6 +57,8 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'onsails/lspkind-nvim'
 
+Plug 'oberblastmeister/neuron.nvim', { 'branch': 'unstable'}
+Plug 'nvim-lua/popup.nvim'
 
 " Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 " Plug 'ledger/vim-ledger'
@@ -542,6 +544,20 @@ require("indent_blankline").setup {
 EOF
 " }}}
 
+" neuron-nvim {{{
+
+lua <<EOF
+require'neuron'.setup {
+    virtual_titles = true,
+    mappings = true,
+    run = nil, -- function to run when in neuron dir
+    neuron_dir = "~/zettelkasten", -- the directory of all of your notes, expanded by default (currently supports only one directory for notes, find a way to detect neuron.dhall to use any directory)
+    leader = "gz", -- the leader key to for all mappings, remember with 'go zettel'
+}
+EOF
+
+" }}}
+
 " Mappings
 
 " general {{{
@@ -637,6 +653,7 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fc <cmd>Telescope colorscheme<cr>
 nnoremap <leader>fr <cmd>Telescope registers<cr>
 nnoremap <leader>fm <cmd>Telescope man_pages<cr>
+nnoremap <leader>fkm <cmd>Telescope keymaps<cr>
 
 " }}}
 
