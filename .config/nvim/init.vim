@@ -76,6 +76,9 @@ Plug 'windwp/nvim-autopairs'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'folke/trouble.nvim'
 
+Plug 'tpope/vim-repeat'
+Plug 'ggandor/lightspeed.nvim'
+
 " Themes
 " Plug 'glepnir/zephyr-nvim'
 Plug 'EdenEast/nightfox.nvim'
@@ -103,6 +106,8 @@ set clipboard=unnamed
 set ignorecase
 set smartcase
 set termguicolors
+
+set scrolloff=10
 
 " do not inserts comments automatically on new line
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -150,7 +155,7 @@ lua require('gitsigns').setup()
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-ensure_installed = { "javascript", "css", "vim", "lua", "c", "cpp"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+ensure_installed = { "javascript", "css", "vim", "lua", "c", "cpp", "svelte", "typescript"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
   -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
   highlight = {
@@ -160,7 +165,7 @@ ensure_installed = { "javascript", "css", "vim", "lua", "c", "cpp"}, -- one of "
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = true,
+    additional_vim_regex_highlighting = false,
   },
   autotag = {
     enable = true,
@@ -654,6 +659,7 @@ nnoremap <leader>fc <cmd>Telescope colorscheme<cr>
 nnoremap <leader>fr <cmd>Telescope registers<cr>
 nnoremap <leader>fm <cmd>Telescope man_pages<cr>
 nnoremap <leader>fkm <cmd>Telescope keymaps<cr>
+nnoremap <leader>F <cmd>Telescope resume<cr>
 
 " }}}
 
