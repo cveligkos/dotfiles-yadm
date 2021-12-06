@@ -46,7 +46,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'fladson/vim-kitty'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'glepnir/lspsaga.nvim'
 Plug 'ray-x/lsp_signature.nvim'
 
 Plug 'tpope/vim-surround'
@@ -206,7 +205,13 @@ EOF
 " }}}
 
 " autopairs {{{
-lua require('nvim-autopairs').setup{}
+
+lua <<EOF
+
+require('nvim-autopairs').setup({})
+
+EOF
+
 " }}}
 
 " nvim-cmp {{{
@@ -296,7 +301,6 @@ cmp.setup {
 }
 
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 
 EOF
@@ -563,6 +567,28 @@ EOF
 
 " }}}
 
+" telescope {{{
+
+lua <<EOF
+
+require('telescope').setup {
+  extensions = {
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                       -- the default case_mode is "smart_case"
+    }
+  }
+}
+
+require('telescope').load_extension('fzf')
+
+EOF
+
+" }}}
+
 " Mappings
 
 " general {{{
@@ -659,7 +685,7 @@ nnoremap <leader>fc <cmd>Telescope colorscheme<cr>
 nnoremap <leader>fr <cmd>Telescope registers<cr>
 nnoremap <leader>fm <cmd>Telescope man_pages<cr>
 nnoremap <leader>fkm <cmd>Telescope keymaps<cr>
-nnoremap <leader>F <cmd>Telescope resume<cr>
+nnoremap <leader>R <cmd>Telescope resume<cr>
 
 " }}}
 
