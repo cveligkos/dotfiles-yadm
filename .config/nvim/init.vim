@@ -50,10 +50,16 @@ Plug 'ray-x/lsp_signature.nvim'
 
 Plug 'tpope/vim-surround'
 
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/vim-vsnip'
+Plug 'rafamadriz/friendly-snippets'
+Plug 'fivethree-team/vscode-svelte-snippets'
+
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 Plug 'onsails/lspkind-nvim'
 
 Plug 'oberblastmeister/neuron.nvim', { 'branch': 'unstable'}
@@ -179,9 +185,6 @@ lua <<EOF
 -- rust-analyzer
 require'lspconfig'.rust_analyzer.setup{}
 
--- tsserver
-require'lspconfig'.tsserver.setup{}
-
 -- vimls
 require'lspconfig'.vimls.setup{}
 
@@ -199,6 +202,14 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 require'lspconfig'.cssls.setup {
   capabilities = capabilities,
 }
+
+-- tsserver
+-- require'lspconfig'.tsserver.setup { }
+
+-- require'lspconfig'.html.setup {
+--   capabilities = capabilities,
+--   filetypes = { "html", "eruby" }
+-- }
 
 EOF
 
@@ -220,19 +231,31 @@ set completeopt=menu,menuone,noselect
 
 lua <<EOF
 
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+
+
  -- Setup nvim-cmp.
+ local luasnip = require'luasnip'
+ require("luasnip/loaders/from_vscode").lazy_load()
+
  local cmp = require'cmp'
 
   cmp.setup({
+
     snippet = {
       -- REQUIRED - you must specify a snippet engine
       expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
         -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
         -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
       end,
     },
+
     mapping = {
       ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
       ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
@@ -243,13 +266,33 @@ lua <<EOF
         c = cmp.mapping.close(),
       }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
+
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
     },
+
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
+      { name = 'luasnip' }, -- For luasnip users.
     }, {
       { name = 'buffer' },
     })
@@ -274,17 +317,23 @@ lua <<EOF
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+
   require('lspconfig')['rust_analyzer'].setup {
     capabilities = capabilities
     }
+
   require('lspconfig')['tsserver'].setup {
     capabilities = capabilities
     }
 
+  require('lspconfig')['html'].setup {
+    capabilities = capabilities
+    }
 
 require'cmp'.setup {
   sources = {
-    { name = 'nvim_lsp' }
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' }
   }
 }
 
