@@ -61,6 +61,7 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'onsails/lspkind-nvim'
+Plug 'kevinhwang91/nvim-hlslens'
 
 Plug 'oberblastmeister/neuron.nvim', { 'branch': 'unstable'}
 Plug 'nvim-lua/popup.nvim'
@@ -439,6 +440,16 @@ require('formatter').setup({
         }
       end
     },
+    typescript = {
+      -- prettier
+      function()
+        return {
+          exe = "prettier",
+          args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
+          stdin = true
+        }
+      end
+    },
     javascript = {
       -- prettier
       function()
@@ -766,3 +777,19 @@ nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 nnoremap <silent> <M-o> :RnvimrToggle<CR>
 
 "}}}
+
+" nvim-hlslens {{{
+
+noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR>
+            \<Cmd>lua require('hlslens').start()<CR>
+noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR>
+            \<Cmd>lua require('hlslens').start()<CR>
+noremap * *<Cmd>lua require('hlslens').start()<CR>
+noremap # #<Cmd>lua require('hlslens').start()<CR>
+noremap g* g*<Cmd>lua require('hlslens').start()<CR>
+noremap g# g#<Cmd>lua require('hlslens').start()<CR>
+
+" use : instead of <Cmd>
+nnoremap <silent> <leader>l :noh<CR>
+
+" }}}
