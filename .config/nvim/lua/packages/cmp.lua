@@ -1,7 +1,7 @@
 return {
 	"hrsh7th/nvim-cmp",
 	config = function()
-		vim.opt.completeopt = "menu, menuone, noselect"
+		vim.o.completeopt = 'menu,menuone,noselect'
 
 		local has_words_before = function()
 			local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -83,8 +83,12 @@ return {
 		})
 
 		-- Setup lspconfig.
-		local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+		-- local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 		-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+
+		-- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 		require("lspconfig")["rust_analyzer"].setup({
 			capabilities = capabilities,
@@ -105,9 +109,6 @@ return {
 			},
 		})
 
-		-- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 		-- lspkind
 		local lspkind = require("lspkind")

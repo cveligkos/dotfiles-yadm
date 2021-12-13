@@ -1,62 +1,5 @@
 " vim:fdm=marker
 
-lua require('plugins')
-
-" Options {{{
-" =================================
-" Load vim-sensible defaults so that settings below can override them
-runtime! plugin/sensible.vim
-
-set cursorline
-
-set number
-set relativenumber
-
-set hidden
-set clipboard=unnamed
-
-set ignorecase
-set smartcase
-set termguicolors
-
-set scrolloff=10
-
-" do not inserts comments automatically on new line
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" Mappings
-
-" }}}
-
-" Theme {{{
-" =================================
-" Tokyo Night settings
-" The theme comes in two styles, 'storm' and a darker variant 'night'.
-let g:tokyonight_style = "night"
-
-" Comments are italicized by default
-let g:tokyonight_italic_comments = 1
-
-" Keywords are italicized by default
-let g:tokyonight_italic_keywords = 1
-
-" Functions are not italicized by default
-let g:tokyonight_italic_functions = 0
-
-" Enable this to disable setting the background color
-let g:tokyonight_transparent = 0
-
-" Enabling this option, will hide inactive statuslines and
-" replace them with a thin border instead. Should work with
-" the standard `StatusLine` and `LuaLine`.
-let g:tokyonight_hide_inactive_statusline = 0
-
-colorscheme onenord
-
-" }}}
-
-" Mappings
-
 " general {{{
 
 let mapleader = " "
@@ -163,18 +106,6 @@ nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
 nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
-
-" }}}
-
-" cokeline.nvim {{{
-
-" " Focus the previous/next buffer
-" nmap <silent> <leader>k <Plug>(cokeline-focus-prev)
-" nmap <silent> <leader>j <Plug>(cokeline-focus-next)
-
-" " Switch the position of the current buffer with the previous/next buffer
-" nmap <silent> <Leader>K <Plug>(cokeline-switch-prev)
-" nmap <silent> <Leader>J <Plug>(cokeline-switch-next) 
 
 " }}}
 

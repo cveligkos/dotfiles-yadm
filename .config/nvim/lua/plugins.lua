@@ -11,6 +11,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	})
 end
 
+vim.cmd([[packadd packer.nvim]])
+
 vim.cmd([[
   augroup packer_user_config
     autocmd!
@@ -19,8 +21,9 @@ vim.cmd([[
 ]])
 
 return require("packer").startup(function()
+	use("wbthomason/packer.nvim")
 	use("nvim-lua/plenary.nvim")
-	use(require("packages.vim-sensible"))
+	-- use(require("packages.vim-sensible"))
 	use(require("packages.gitsigns"))
 	use(require("packages.telescope-fzf-native"))
 	use(require("packages.telescope"))
@@ -29,6 +32,7 @@ return require("packer").startup(function()
 	use(require("packages.stabilize"))
 	-- "   use 'b3nj5m1n/kommentary'
 
+	use(require("packages.lspconfig"))
 	use(require("packages.commentary"))
 	use(require("packages.treesitter"))
 	use(require("packages.ts-context-commentstring"))
@@ -68,15 +72,10 @@ return require("packer").startup(function()
 	use(require("packages.lightspeed"))
 
 	-- " Themes
-	-- "   use 'glepnir/zephyr-nvim'
-	use("EdenEast/nightfox.nvim")
-	-- "   use 'folke/tokyonight.nvim'
-	-- "   use 'shaunsingh/nord.nvim'
-	use("rmehri01/onenord.nvim")
+	use(require("themes.tokyonight"))
+	use(require("themes.onenord"))
+	use(require("themes.nightfox"))
 
-	-- call plug#end()
-
-	-- " }}}
 	if packer_bootstrap then
 		require("packer").sync()
 	end
