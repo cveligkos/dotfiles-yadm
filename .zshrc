@@ -93,6 +93,7 @@ alias v='nvim'
 alias t='task'
 alias r='ranger'
 alias lg='lazygit'
+alias pn='pnpm'
 
 alias ls='exa'
 alias la='exa -a'
@@ -129,12 +130,6 @@ path=("$VOLTA_HOME/bin" $path)
 
 # }}}
 
-# path {{{
-
-path=("$HOME/bin" $path)
-typeset -U path
-
-# }}}
 
 # Env vars {{{
 
@@ -311,5 +306,21 @@ function br {
         return "$code"
     fi
 }
+
+# }}}
+
+# pyenv {{{
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+
+# }}}
+
+# path {{{
+
+path=("$HOME/bin" $path)
+typeset -U path
 
 # }}}
