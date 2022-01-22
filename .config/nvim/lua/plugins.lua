@@ -33,6 +33,7 @@ return require("packer").startup(function()
 	-- "   use 'b3nj5m1n/kommentary'
 
 	use(require("packages.lspconfig"))
+	use(require("packages.lsp-installer"))
 	use(require("packages.commentary"))
 	use(require("packages.treesitter"))
 	use(require("packages.ts-context-commentstring"))

@@ -3,8 +3,8 @@
 " general {{{
 
 let mapleader = " "
-nnoremap <leader>sv :source ~/.config/nvim/init.vim<CR>
-nnoremap <leader>ev :edit ~/.config/nvim/init.vim<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>ev :edit $MYVIMRC<CR>
 
 nnoremap <M-s> :write<CR>
 inoremap <M-s> <Esc>:write<CR>gi
