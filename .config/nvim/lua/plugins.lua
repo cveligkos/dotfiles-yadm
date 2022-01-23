@@ -32,6 +32,8 @@ return require("packer").startup(function()
 	use(require("packages.stabilize"))
 	-- "   use 'b3nj5m1n/kommentary'
 
+	use(require("packages.format-installer"))
+	-- use(require("packages.formatter"))
 	use(require("packages.lspconfig"))
 	use(require("packages.lsp-installer"))
 	use(require("packages.commentary"))
@@ -63,7 +65,6 @@ return require("packer").startup(function()
 	use(require("packages.nvim-tree"))
 
 	-- use 'windwp/nvim-spectre'
-	use(require("packages.formatter"))
 	use(require("packages.indent-blankline"))
 	use(require("packages.autopairs"))
 	use(require("packages.colorizer"))
