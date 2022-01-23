@@ -123,24 +123,6 @@ eval "$(zoxide init zsh)"
 
 # }}}
 
-# volta {{{
-
-export VOLTA_HOME="$HOME/.volta"
-path=("$VOLTA_HOME/bin" $path)
-
-# }}}
-
-
-# Env vars {{{
-
-export EDITOR='nvim'
-
-if [ -f ~/.env-vars ]; then
-	source ~/.env-vars
-fi
-
-# }}}
-
 # skim {{{
 
 #     ____      ____
@@ -309,18 +291,14 @@ function br {
 
 # }}}
 
-# pyenv {{{
+# path {{{
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
+typeset -U path
 
 # }}}
 
-# path {{{
+# pyenv {{{
 
-path=("$HOME/bin" $path)
-typeset -U path
+eval "$(pyenv init -)"
 
 # }}}
