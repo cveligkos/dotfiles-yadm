@@ -6,8 +6,6 @@ local globalkeys = {
     -- General Awesome keys
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
         {description="show help", group="awesome"}),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-        {description = "show main menu", group = "awesome"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
         {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
@@ -26,8 +24,6 @@ local globalkeys = {
         {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
         {description = "run prompt", group = "launcher"}),
-    awful.key({ modkey }, "p", function() menubar.show() end,
-        {description = "show the menubar", group = "launcher"}),
 
     -- Tags related keybindings
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -162,7 +158,56 @@ local globalkeys = {
                 t.layout = t.layouts[index] or t.layout
             end
         end,
-    }
+    },
+
+    -- Programs
+    awful.key({ modkey,           }, "p", function () awful.spawn("rofi -show drun") end,
+        {description = "open rofi launcher", group = "launcher"}),
+    awful.key({ modkey,           }, "w", function () awful.spawn("firefox") end,
+        {description = "open firefox browser", group = "launcher"}),
+    awful.key({ modkey,           }, "F8", function () awful.spawn("chromium-launcher") end,
+        {description = "open chromium profile selector", group = "launcher"}),
+    awful.key({                   }, "XF86Tools", function () awful.spawn("spotify") end,
+        {description = "open spotify app", group = "launcher"}),
+
+    -- Audio volume (system)
+    awful.key({                   }, "XF86AudioRaiseVolume", function () awful.spawn("pactl -- set-sink-volume 0 +5%") end,
+        {description = "raise volume", group = "media"}),
+    awful.key({                   }, "XF86AudioLowerVolume", function () awful.spawn("pactl -- set-sink-volume 0 -5%") end,
+        {description = "lower volume", group = "media"}),
+    awful.key({                   }, "XF86AudioMute", function () awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") end,
+        {description = "lower volume", group = "media"}),
+    -- Audio volume (player)
+    awful.key({modkey             }, "XF86AudioRaiseVolume", function () awful.spawn("playerctl volume 0.05+") end,
+        {description = "raise volume", group = "media"}),
+    awful.key({modkey             }, "XF86AudioLowerVolume", function () awful.spawn("playerctl volume 0.05-") end,
+        {description = "lower volume", group = "media"}),
+    awful.key({modkey             }, "XF86AudioMute", function () awful.spawn("playerctl-mute-toggle") end,
+        {description = "lower volume", group = "media"}),
+
+    -- Media keys
+    awful.key({                   }, "XF86AudioPlay", function () awful.spawn("playerctl play-pause") end,
+        {description = "lower volume", group = "media"}),
+    awful.key({                   }, "XF86AudioPrev", function () awful.spawn("playerctl previous") end,
+        {description = "lower volume", group = "media"}),
+    awful.key({                   }, "XF86AudioNext", function () awful.spawn("playerctl next") end,
+        {description = "lower volume", group = "media"}),
+
+    -- Seek
+    awful.key({modkey             }, "XF86AudioPrev", function () awful.spawn("playerctl position 5-") end,
+        {description = "lower volume", group = "media"}),
+    awful.key({modkey             }, "XF86AudioNext", function () awful.spawn("playerctl position 5+") end,
+        {description = "lower volume", group = "media"}),
+
+    -- Shuffle
+    awful.key({modkey, "Control"  }, "XF86AudioPlay", function () awful.spawn("playerctl shuffle Toggle") end,
+        {description = "lower volume", group = "media"}),
+
+    -- Loop
+    awful.key({modkey, "Mod1"      }, "XF86AudioPlay", function () awful.spawn("playerctl-loop-toggle") end,
+        {description = "lower volume", group = "media"}),
+
+
 }
 
 awful.keyboard.append_global_keybindings(globalkeys)
