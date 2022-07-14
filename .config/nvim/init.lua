@@ -1,4 +1,6 @@
 require("plugins")
+require("config.lsp")
+require("config.completion")
 
 -- Options
 vim.opt.cursorline = true
@@ -21,4 +23,4 @@ augroup END
 vim.cmd("runtime mappings.vim")
 
 -- Themes
-vim.cmd("colorscheme tokyonight")
+vim.cmd("colorscheme desert")
