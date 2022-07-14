@@ -29,9 +29,6 @@ zinit light romkatv/powerlevel10k
 zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-history-substring-search
 
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
 ### End of Zinit's installer chunk
 # }}}
 
@@ -89,6 +86,7 @@ bindkey -s '^R' '$(cat $HISTFILE | sk)^M'
 
 # aliases {{{
 
+alias SS='sudo systemctl'
 alias v='nvim'
 alias t='task'
 alias r='ranger'
@@ -302,3 +300,7 @@ typeset -U path
 eval "$(pyenv init -)"
 
 # }}}
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
