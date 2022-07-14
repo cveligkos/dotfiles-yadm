@@ -19,6 +19,11 @@ then
     path=("$HOME/go/bin" $path)
 fi
 
+if command -v composer &> /dev/null
+then
+    path=("$HOME/.config/composer/vendor/bin" $path)
+fi
+
 path=("$HOME/bin" $path)
 
 export PATH
