@@ -37,6 +37,8 @@ return packer.startup(function(use)
 
 	use("szw/vim-maximizer")
 
+	use("christoomey/vim-tmux-navigator")
+
 	use("tpope/vim-surround")
 	use("vim-scripts/ReplaceWithRegister")
 
