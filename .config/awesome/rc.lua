@@ -78,41 +78,41 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Table of layouts to cover with awful.layout.inc, order matters.
 tag.connect_signal("request::default_layouts", function()
     awful.layout.append_default_layouts({
-        awful.layout.suit.floating,
         awful.layout.suit.tile,
-        awful.layout.suit.tile.left,
-        awful.layout.suit.tile.bottom,
-        awful.layout.suit.tile.top,
-        awful.layout.suit.fair,
-        awful.layout.suit.fair.horizontal,
-        awful.layout.suit.spiral,
-        awful.layout.suit.spiral.dwindle,
-        awful.layout.suit.max,
-        awful.layout.suit.max.fullscreen,
-        awful.layout.suit.magnifier,
-        awful.layout.suit.corner.nw,
+        awful.layout.suit.floating,
+        -- awful.layout.suit.tile.bottom,
+        -- awful.layout.suit.tile.left,
+        -- awful.layout.suit.tile.top,
+        -- awful.layout.suit.fair,
+        -- awful.layout.suit.fair.horizontal,
+        -- awful.layout.suit.spiral,
+        -- awful.layout.suit.spiral.dwindle,
+        -- awful.layout.suit.max,
+        -- awful.layout.suit.max.fullscreen,
+        -- awful.layout.suit.magnifier,
+        -- awful.layout.suit.corner.nw,
     })
 end)
 -- }}}
 
 -- {{{ Wallpaper
-screen.connect_signal("request::wallpaper", function(s)
-    awful.wallpaper {
-        screen = s,
-        widget = {
-            {
-                image     = beautiful.wallpaper,
-                upscale   = true,
-                downscale = true,
-                widget    = wibox.widget.imagebox,
-            },
-            valign = "center",
-            halign = "center",
-            tiled  = false,
-            widget = wibox.container.tile,
-        }
-    }
-end)
+-- screen.connect_signal("request::wallpaper", function(s)
+--     awful.wallpaper {
+--         screen = s,
+--         widget = {
+--             {
+--                 image     = beautiful.wallpaper,
+--                 upscale   = true,
+--                 downscale = true,
+--                 widget    = wibox.widget.imagebox,
+--             },
+--             valign = "center",
+--             halign = "center",
+--             tiled  = false,
+--             widget = wibox.container.tile,
+--         }
+--     }
+-- end)
 -- }}}
 
 -- {{{ Wibar
@@ -218,8 +218,8 @@ awful.mouse.append_global_mousebindings({
 awful.keyboard.append_global_keybindings({
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-              {description = "show main menu", group = "awesome"}),
+    -- awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
+    --           {description = "show main menu", group = "awesome"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
@@ -234,12 +234,38 @@ awful.keyboard.append_global_keybindings({
                   }
               end,
               {description = "lua execute prompt", group = "awesome"}),
+
+    -- Programs
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
-              {description = "run prompt", group = "launcher"}),
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"}),
+    -- awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
+    --           {description = "run prompt", group = "launcher"}),
+    awful.key({ modkey }, "p", function() awful.spawn('rofi -show drun') end,
+              {description = "rofi program launcher", group = "launcher"}),
+    awful.key({ modkey }, "w", function() awful.spawn('firefox') end,
+              {description = "firefox", group = "launcher"}),
+    awful.key({ modkey }, "F8", function() awful.spawn.with_shell('chromium-launcher') end,
+              {description = "Chorimum profile launcher", group = "launcher"}),
+    awful.key({}, "XF86HomePage", function() awful.spawn.with_shell('chromium-launcher') end,
+              {description = "Chorimum profile launcher", group = "launcher"}),
+
+    -- Media keys
+    awful.key({}, "XF86Tools", function() awful.spawn('spotify') end,
+              {description = "Spotify", group = "media"}),
+    awful.key({}, "XF86AudioPlay", function() awful.spawn('playerctl play-pause') end,
+              {description = "Play/Pause", group = "media"}),
+    awful.key({}, "XF86AudioPrev", function() awful.spawn('playerctl previous') end,
+              {description = "Previous", group = "media"}),
+    awful.key({}, "XF86AudioNext", function() awful.spawn('playerctl next') end,
+              {description = "Next", group = "media"}),
+    awful.key({}, "XF86AudioStop", function() awful.spawn('playerctl stop') end,
+              {description = "Stop", group = "media"}),
+
+    -- Volume keys
+    awful.key({}, "XF86AudioRaiseVolume", function() awful.spawn('amixer set Master 5%+') end,
+              {description = "Raise volume", group = "media"}),
+    awful.key({}, "XF86AudioLowerVolume", function() awful.spawn('amixer set Master 5%-') end,
+              {description = "Lower volume", group = "media"}),
 })
 
 -- Tags related keybindings
