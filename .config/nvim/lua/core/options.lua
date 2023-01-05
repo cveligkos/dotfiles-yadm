@@ -42,3 +42,4 @@ opt.iskeyword:append("-")
 -- vim.opt.autowrite = true
 -- vim.opt.cursorline = true
 -- vim.opt.autoread = true
+opt.scrolloff = 10

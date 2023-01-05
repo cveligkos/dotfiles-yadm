@@ -1,19 +1,19 @@
-local setup, lualine = pcall(require, 'lualine')
+local setup, lualine = pcall(require, "lualine")
 if not setup then
-    return
+	return
 end
 
-lualine.setup {
-    options = {
-        icons_enabled = true,
-        theme = 'gruvbox',
-    },
-    sections = {
-        lualine_a = {
-            {
-                'filename',
-                path = 1,
-            }
-        }
-    }
-}
+lualine.setup({
+	options = {
+		icons_enabled = true,
+		theme = "gruvbox",
+	},
+	sections = {
+		lualine_a = {
+			{
+				"filename",
+				path = 1,
+			},
+		},
+	},
+})

@@ -90,6 +90,12 @@ return packer.startup(function(use)
 	use("gpanders/editorconfig.nvim")
 
 	use("NvChad/nvim-colorizer.lua")
+	use("lukas-reineke/indent-blankline.nvim")
+	use("tpope/vim-repeat")
+	use("ggandor/leap.nvim")
+	use("Mofiqul/dracula.nvim")
+	use("folke/twilight.nvim")
+	use("folke/zen-mode.nvim")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
