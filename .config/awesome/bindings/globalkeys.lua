@@ -43,7 +43,7 @@ awful.keyboard.append_global_keybindings({
 
 	key({ modkey }, "F8", function()
 		awful.spawn.with_shell("$HOME/bin/chromium-launcher")
-	end, { description = "open firefox", group = "launcher" }),
+	end, { description = "open chromium profile selector", group = "launcher" }),
 })
 
 -- Tags related keybindings
