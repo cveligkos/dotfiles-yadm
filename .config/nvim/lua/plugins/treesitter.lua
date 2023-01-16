@@ -23,6 +23,7 @@ treesitter.setup({
 		"css",
 		"html",
 		"svelte",
+		"python",
 	},
 	auto_install = true,
 })

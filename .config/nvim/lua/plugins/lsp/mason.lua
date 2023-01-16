@@ -23,6 +23,7 @@ mason_lspconfig.setup({
 		"html",
 		"cssls",
 		"svelte",
+		"pylsp",
 	},
 })
 
@@ -31,5 +32,7 @@ mason_null_ls.setup({
 		"prettierd",
 		"stylua",
 		"eslint_d",
+		"black",
+		"rustfmt",
 	},
 })
