@@ -1,0 +1,5 @@
+# path {{{
+
+typeset -U path
+
+# }}}
